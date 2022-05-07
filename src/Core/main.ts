@@ -1,13 +1,24 @@
-export interface Cell{
-    x:number
-    y:number
-}
-export interface setGame extends Array<Cell>{}
+export class Games{
+    board: Array<Array<number>>
+    constructor(board: Array<Array<number>>){
+        this.board = board
+    }
 
-export function setMatrix(cells : number = 500, limit = 500):Cell[]{
-    for(let index = 0; index < cells; index ++){
-        const x = Math.floor(Math.random() * (limit/6))
-        const y = Math.floor(Math.random() * (limit/6))
-    } 
-    return new Array({x:0,y:0}) 
+    public step(){
+        this.board = this.board.map((row, cellY) =>{
+            return row.map((cell, cellX) => {
+                let number_of_neigbours = 0
+                for (let y = cellY - 1; y <= cellY + 1; y++){
+                    for(let x = cellX - 1; x <= cellX + 1; x++){
+                        if(y === cellY && x === cellX) continue
+                        number_of_neigbours += (this.board?.[y]?.[x] || 0)
+                    }
+                }
+
+                if(cell && [2, 3].includes(number_of_neigbours)) return 1
+
+                return 0
+            })
+        })
+    }
 }
