@@ -17,6 +17,8 @@ export class Games{
 
                 if(cell && [2, 3].includes(number_of_neigbours)) return 1
 
+                if (!cell && number_of_neigbours === 3) return 1
+
                 return 0
             })
         })
